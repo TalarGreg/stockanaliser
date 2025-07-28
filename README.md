@@ -1,0 +1,2 @@
+# stockanaliser
+testtest
