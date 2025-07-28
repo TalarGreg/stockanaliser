@@ -31,6 +31,15 @@ It is important to provide correct EVENTHUB_NAME and CONNECTION_STR to script. T
 
   
   # 3. Eventhouse and Real-Time Report rt_ds_volumen_of_last_5minutes
+Data lands in Eventhouse (KQL Database) eh_stockanaliser table tbl_eventtable:
+<img width="1488" height="568" alt="image" src="https://github.com/user-attachments/assets/9f50f05e-0429-45fd-9448-9b9ae043d07d" />
+
+Real-Time Report base on KQL table using following query which shows agregated data from 5 last minutes:
+<img width="678" height="484" alt="image" src="https://github.com/user-attachments/assets/68a6c62e-f9e7-4ff7-92ad-5b9a7c47a405" />
+
+The reports are a simple tabular visualization, but the information they contain allows to get an idea of the situation on the stock exchange.
+<img width="730" height="369" alt="image" src="https://github.com/user-attachments/assets/132e93d1-f819-4b97-9ca6-dc0d99d69c92" />
+
   # 4. Data orchestration – Data pipelines step 1
   # 5. Data orchestration – Data pipelines step 2
   # 6. Report rp_gold_wrong_volume_per_day
