@@ -1,0 +1,6 @@
+tbl_eventtable
+| where EventProcessedUtcTime >= ago(5m) and transaction_type != ''
+| summarize TotalValueInMln = round(sum(price * volume)/1000000, 2) 
+    by symbol, exchange, transaction_type, currency
+| project symbol, exchange, transaction_type, currency, TotalValueInMln
+| order by symbol asc , transaction_type asc, TotalValueInMln desc
