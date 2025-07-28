@@ -47,7 +47,7 @@ Data pipeline dpl_load_medalion includes 3 Notebooks. Every notebook are loading
 Step 1 described in this section is responsible for loading data from tbl_bronze into tbl_silver_part and tbl_silver_wrong_currency. Step 1 runs Notebook **notebooks/nb_load_silver_part.ipynb**.
 The CDF feature is set on the tbl_bronze table. Script uses CDF and helping table cdf_control_silver_part to insert only new rows into tbl_silver_part and tbl_silver_wrong_currency table.
 
-Script adding partition_date column which is DATA format, this is column which is used as partition key in tbl_silver_part and tbl_silver_wrong_currency.
+Script adds partition_date column which is DATA format, this column is used as partition key in tbl_silver_part and tbl_silver_wrong_currency.
 
 
   # 5. Data orchestration – Data pipelines step 2
