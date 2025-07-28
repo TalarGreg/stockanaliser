@@ -47,9 +47,33 @@ Data pipeline dpl_load_medalion includes 3 Notebooks. Every notebook are loading
 Step 1 described in this section is responsible for loading data from tbl_bronze into tbl_silver_part and tbl_silver_wrong_currency. Step 1 runs Notebook **notebooks/nb_load_silver_part.ipynb**.
 The CDF feature is set on the tbl_bronze table. Script uses CDF and helping table cdf_control_silver_part to insert only new rows into tbl_silver_part and tbl_silver_wrong_currency table.
 
+```
+ctrl = spark.table("cdf_control_silver_part").filter("table_name = 'tbl_bronze'").first()
+last_version = ctrl["last_version"]     #946
+
+# find current table version
+current_version = spark.sql("DESCRIBE HISTORY tbl_bronze")\
+                       .selectExpr("max(version) as v")\
+                       .first()["v"]
+
+if current_version > last_version:
+
+    # get changes and add partition_date column
+    changes_df = spark.sql(f"""
+    SELECT 
+            timestamp,            symbol,            exchange,            event_type,            latency_ms,            order_id,            transaction_type,            price,            volume,            bid_price,            ask_price,            bid_size,            ask_size,            canceled_order_id,            currency,            trade_id,            event_id,            EventProcessedUtcTime,            PartitionId,            EventEnqueuedUtcTime   
+    FROM table_changes('tbl_bronze', {last_version})
+    WHERE _change_type = 'insert'
+    """)
+```
+
 Script adds partition_date column which is DATA format, this column is used as partition key in tbl_silver_part and tbl_silver_wrong_currency.
 
-
+```
+    with_date = changes_df \
+    .withColumn("partition_date", to_date(col("timestamp"))) \
+    .cache()                   # <<< cacheujemy wynik
+```
   # 5. Data orchestration – Data pipelines step 2
   # 6. Report rp_gold_wrong_volume_per_day
   # 7. Data orchestration – Data pipelines step 3
