@@ -11,4 +11,4 @@ Synthetic (randomized) market-quote events are created by local Python scrypt, i
 
 ### 1. Project Architecture
 
-<img width="1884" height="853" alt="general" src="https://github.com/user-attachments/assets/8a21a47d-9d8b-4259-9a72-9823816309a4" />
+<img width="1919" height="905" alt="image" src="https://github.com/user-attachments/assets/e3391c5c-ba5c-4261-96a9-0d341c914185" />
