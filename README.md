@@ -41,6 +41,15 @@ The reports are a simple tabular visualization, but the information they contain
 <img width="730" height="369" alt="image" src="https://github.com/user-attachments/assets/132e93d1-f819-4b97-9ca6-dc0d99d69c92" />
 
   # 4. Data orchestration – Data pipelines step 1
+Data pipeline dpl_load_medalion includes 3 Notebooks. Every notebook are loading and transforming data to different stages.
+  <img width="838" height="319" alt="image" src="https://github.com/user-attachments/assets/c28b2f8d-024a-4801-b28e-1c09ca5c9c31" />
+
+Step 1 described in this section is responsible for loading data from tbl_bronze into tbl_silver_part and tbl_silver_wrong_currency. Step 1 runs Notebook **notebooks/nb_load_silver_part.ipynb**.
+The CDF feature is set on the tbl_bronze table. Script uses CDF and helping table cdf_control_silver_part to insert only new rows into tbl_silver_part and tbl_silver_wrong_currency table.
+
+Script adding partition_date column which is DATA format, this is column which is used as partition key in tbl_silver_part and tbl_silver_wrong_currency.
+
+
   # 5. Data orchestration – Data pipelines step 2
   # 6. Report rp_gold_wrong_volume_per_day
   # 7. Data orchestration – Data pipelines step 3
