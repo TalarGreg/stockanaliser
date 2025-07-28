@@ -9,6 +9,20 @@ Built natively on MS Fabric, the project concentrates on data-engineering aspect
 Synthetic (randomized) market-quote events are created by local Python scrypt, ingested via Eventstream into Eventhouse. Eventstream also load data to Lakehouse bronze tier. Orchestration is handled by Data Pipelines that execute PySpark notebooks which load silver and gold tier. Final outputs are exposed in a Reports (Lakehouse source) and an Real-Time Dashboard (Eventhouse source).
 
 
-### 1. Project Architecture
+### Project Architecture
 
 <img width="1919" height="905" alt="image" src="https://github.com/user-attachments/assets/e3391c5c-ba5c-4261-96a9-0d341c914185" />
+
+  # 1. Python script - data generation
+  
+  # 2. Eventstream – ingest and data distribution
+  # 3. Eventhouse and Real-Time Report rt_ds_volumen_of_last_5minutes
+  # 4. Data orchestration – Data pipelines step 1
+  # 5. Data orchestration – Data pipelines step 2
+  # 6. Report rp_gold_wrong_volume_per_day
+  # 7. Data orchestration – Data pipelines step 3
+  # 8. Report rp_gold_amount_per_event_type
+  
+  
+  ### Scheduling
+  ### Summary
