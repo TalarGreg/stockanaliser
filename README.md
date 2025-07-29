@@ -97,7 +97,13 @@ Step 3 **notebooks/nb_load_gold_tables_amount_per_event_type.ipynb** ładuje dan
 <img width="592" height="447" alt="image" src="https://github.com/user-attachments/assets/04eb49e7-517f-4c12-8fc6-1984ea150013" />
 
   # 7. Report rp_gold_amount_per_event_type
-  
+<img width="596" height="516" alt="image" src="https://github.com/user-attachments/assets/76700dc3-ff2c-4351-889b-535c4b4747f6" />
+
+Raport w prosty sposób przedstawia tabelę tbl_gold_amount_per_event_type.
   
   ### Scheduling
+
+Data pipeline dpl_load_medalion jest uruchamiany w harmonogramie co godzinę. Dane do Eventstream spłwają i są zapisywane w tabeli tbl_bronze w sposób ciągły.
+
   ### Summary
+Podsumowując w projekcie zostały użyte items MS Fabric do zbudowania przepływu danych od przyjęcia ich w trybie Stream przez Eventstream, przetrzymywanie ich w tier bronze. Następnie poprzez manipulację danych w obrębie Lakehouse dane zostały przetworzone w PySpark. Dziek harmonogramom przetwarzanie danych uruchamiane jest co określony okres czasu, a prezentowane dane są aktualne. Wyniki końcowe zaprezentowane są jako raporty, choć proste to niosące wiele informacji o obecnym rynku notowań giełdowych. Użycie mechanizmu Change Data Feed umożliwia ładowanie danych, które jeszcze nie zostały załadowane z tier bronze do tier silver.
