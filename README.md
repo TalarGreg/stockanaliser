@@ -11,7 +11,7 @@ Synthetic (randomized) market-quote events are created by local Python scrypt, i
 
 ### Project Architecture
 
-<img width="1919" height="905" alt="image" src="https://github.com/user-attachments/assets/e3391c5c-ba5c-4261-96a9-0d341c914185" />
+<img width="1919" height="862" alt="image" src="https://github.com/user-attachments/assets/45699364-238a-4db9-8d67-ac64892b105a" />
 <img width="1829" height="671" alt="image" src="https://github.com/user-attachments/assets/f863a076-3603-46dd-8ea6-6dca5363126f" />
 
 
@@ -74,10 +74,29 @@ Script adds partition_date column which is DATA format, this column is used as p
     .withColumn("partition_date", to_date(col("timestamp"))) \
     .cache()                   # <<< cacheujemy wynik
 ```
+<img width="871" height="378" alt="image" src="https://github.com/user-attachments/assets/39403592-4051-4619-b40b-c9d3631b1e63" />
+
   # 5. Data orchestration – Data pipelines step 2
-  # 6. Report rp_gold_wrong_volume_per_day
-  # 7. Data orchestration – Data pipelines step 3
-  # 8. Report rp_gold_amount_per_event_type
+<img width="820" height="346" alt="image" src="https://github.com/user-attachments/assets/3dfc40ce-a25e-466e-a70d-c0b8aa48060f" />
+
+Notebook step 2 **notebooks/nb_load_gold_tables_wrong_volume_per_day.ipynb** zasila danymi tabelę tbl_gold_wrong_volume_per_day. Dane w tej tabeli przedstawiają zgrupowany dla symbolu, typu transakcji oraz dnia zsumowany wolumen w milionach EUR. Ze względu na wydajność przetwarzane z danymi dzisiejszymi:
+```
+         .filter((col("event_type") == "TRADE") & (col("partition_date") == current_date()))
+```
+a dane które są ładowane do tabeli docelowej są nadpisywane tylko jeśli wartość w partition_date to data dzisiejsza:
+```
+    .option("replaceWhere", "partition_date = current_date()")
+```
+<img width="547" height="468" alt="image" src="https://github.com/user-attachments/assets/548b260d-43b5-4432-9903-5f48e7e5687b" />
+ 
+  # 6. Data orchestration – Data pipelines step 3
+<img width="559" height="638" alt="image" src="https://github.com/user-attachments/assets/762a162a-fd0e-4365-88d5-9ab2e3e833e8" />
+
+Step 3 **notebooks/nb_load_gold_tables_amount_per_event_type.ipynb** ładuje dane do tabeli tbl_gold_amount_per_event_type, która jest partycjonowana. Dane pobierane są z tabeli tbl_silver_part za pomocą powyższego zapytania. Dane wyjściowe mają określać ilość zdarzeń w notowaniach danej spółki danego dnia.
+
+<img width="592" height="447" alt="image" src="https://github.com/user-attachments/assets/04eb49e7-517f-4c12-8fc6-1984ea150013" />
+
+  # 7. Report rp_gold_amount_per_event_type
   
   
   ### Scheduling
